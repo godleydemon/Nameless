@@ -1,3 +1,5 @@
+The notes for each release
+
 0.1.0
 - Initial release
 
@@ -303,3 +305,134 @@
 - Remove unnecessary Smarty variable from homepage
 - Cache TeamSpeak query and add Join button
 - Allow editing email settings from AdminCP
+
+1.0.11
+- Move datepicker to below input box
+- Fix Darkly theme category dark text
+- Fix inability to edit root user in AdminCP
+- Disable debug messages from mailer
+- Update translations
+- Add BRL currency to Donate addon
+- Update custom pages system
+- Release first API
+- Add a "report closed" label
+- Remove unnecessary database columns
+- Add share social media buttons
+- Fix blue name on blue background on reports page
+- Disable MCStock option in Donate addon
+- Modify tachometer function
+- Decrease minimum username length in AdminCP to 3 characters
+- Fix non-25565 port not showing on Play page
+- Fix link issue with usernames containing spaces
+- Improvements to forum permissions
+- Fix non-25565 port not showing on banner
+- Don't delete PM altogether if author
+- Assign more topic related Smarty variables
+- Add theme-color meta tag
+- Add IRC to readme
+- Change add/remove friend button to follow/unfollow
+- Add JSON headers to API
+- Make the disable avatar button more intuitive
+- Fix profile pagination issue
+- Remove successful email confirmation
+- Add Name History to profile pages
+- Update to new Twitter widget system
+- Remove Twitter widget ID input
+- Fix syntax error in language file
+- Add Infractions link for admins to dropdown
+- Prevent banning root user
+- Add well element to Infractions page
+- Allow changing Minecraft avatar type
+- Alert profile owners on wall posts
+- Add drop column function
+- Allow enabling/disabling custom usernames
+
+1.0.12
+- Add wells to profile page tabs
+- Add Minecraft account association
+- Allow use of wells on custom pages
+- Fix Twitter feed issues
+- Fix email config issue
+- Reinstate cookie notice
+- Update issue template to 1.0.12
+- Update translations
+- Add announcement system
+- Add user titles
+- Add option to change Twitter feed style
+- Add BungeeUtilisals support
+- Prevent users from liking their own profile wall posts
+- Allow HTML use in profile wall posts
+- Fix database issues with donate addon
+- Add modify column function
+
+1.0.13
+- Only show .panel-body with subforums if $parent.forums > 0
+- Removed syntax error in Dutch language translation
+- Fix incorrect setting name in installer
+- Update Dutch translation
+- Update German translation
+- Update Portuguese translation
+- Removed HTTPS port from Twitter sharing
+- Fix Twitter widget height
+- Add voice server port to TeamSpeak join button
+- Fix incorrect topic view count
+- Display correct number of replies in news section
+- Add Twitter URL warning for EnglishUK language
+- Allow panels in custom page editor
+- Add support for offline Ban Management players in Infractions addon
+- Display Followers/Following instead of Friends within UserCP if enabled
+- Don't alert the user if they're posting on their own wall
+- Fix null UUID on manual user creation
+- Fix multiple search issues, including deleted posts being shown
+- Fix "1 hours ago" grammar
+- Ensure API registrations have unique usernames
+- Change scroll destination for post selection
+- Fix unresponsive videos on homepage
+- Hide Social column on front page if empty
+- Allow deleting "broken" posts directly from search
+- Update readme contributors
+- Fix EnglishUK language syntax error
+
+1.0.14
+- Add webchat and Discord links to readme
+- Prevent forum index from counting deleted posts
+- Fix replies not being deleted after topic deletion
+- Update Dutch translation
+- Update German translation
+- Update Norsk translation
+- Update Portuguese translation
+- Update Spanish translation
+- Add checks if the user can view staff applications
+- Removed "Top voters list coming soon" from vote page
+- Update author meta tag to site name
+- Allow custom user sidebar links
+- Add Help page
+- Add Ban Appeal addon to core Nameless release
+- Fix Ban Appeal "More" dropdown issue
+- Allow moving Staff Application link location
+- Update Ban Appeal permission check
+- Ensure email is valid for API registration
+- Automatically log user in on first load
+- Add report creation method to API
+- Update ModCP to support ingame reports
+- Update AdminCP Forum permissions issue
+- Fix avatar width issues
+- Prevent viewing files in non-accessible directories
+- Update editor line break method
+- Add signup completion for API register method
+- Remove user's friends on deletion
+
+1.0.15
+- Update API language terms
+- Improve register API method success message
+- Fix Buycraft synchronisation
+- Allow modifying package descriptions within the Donate addon
+- Fix incorrect link following MCAssoc validation
+- Update lower case addon name in link
+- Keep custom package descriptions on donation sync
+- Remove containers from global messages
+- Fix incorrect custom avatar size in forums
+- Update plugin link within AdminCP Help page
+- Add getNotifications method to API
+- Add updateUsername method to API
+- Update included library

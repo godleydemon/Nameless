@@ -20,7 +20,7 @@
 $admin_language = array(
 	// General terms
 	'admin_cp' => 'AdminCP', 
-	'infractions' => 'infracções',
+	'infractions' => 'Infrações',
 	'invalid_token' => 'Token inválido, tente novamente.',
 	'invalid_action' => 'Ação inválida',
 	'successfully_updated' => 'Atualizado com sucesso',
@@ -35,6 +35,7 @@ $admin_language = array(
 	
 	// Admin sidebar
 	'index' => 'Visão Geral',
+	'announcements' => 'Anúncios',
 	'core' => 'Core',
 	'custom_pages' => 'Páginas Personalizadas',
 	'general' => 'Geral',
@@ -45,10 +46,31 @@ $admin_language = array(
 	'addons' => 'Addons',
 	'update' => 'Atualização',
 	'misc' => 'Outras Configurações',
+	'help' => 'Ajuda',
 	
 	// Admin index page
 	'statistics' => 'Estatísticas',
 	'registrations_per_day' => 'Cadastros por dia (últimos 7 dias)',
+	
+	// Admin announcements page
+	'current_announcements' => 'Anúncios atuais',
+	'create_announcement' => 'Criar anúncio',
+	'announcement_content' => 'Conteúdo do anúncio',
+	'announcement_location' => 'Local do anúncio',
+	'announcement_can_close' => 'Pode fechar o anúncio?',
+	'announcement_permissions' => 'Permissões do anúncio',
+	'no_announcements' => 'Nenhum anúncio criado ainda.',
+	'confirm_cancel_announcement' => 'Tem certeza de que deseja cancelar este anúncio?',
+	'announcement_location_help' => 'Ctrl-clique para selecionar múltiplas linhas',
+	'select_all' => 'Selecionar Todos',
+	'deselect_all' => 'Desmarcar Todos',
+	'announcement_created' => 'Anúncio criado com sucesso',
+	'please_input_announcement_content' => 'Por favor, selecione o tipo do anúncio',
+	'confirm_delete_announcement' => 'Tem certeza de deletar este anúncio?',
+	'announcement_actions' => 'Ações do anúncio',
+	'announcement_deleted' => 'Anúncio deletado com sucesso',
+	'announcement_type' => 'Tipo do anúncio',
+	'can_view_announcement' => 'Quem pode ver o anúncio?',
 	
 	// Admin core page
 	'general_settings' => 'Configurações Gerais',
@@ -85,6 +107,7 @@ $admin_language = array(
 	'social_media_links' => 'Links Páginas Sociais',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
+	'twitter_dark_theme' => 'Use dark Twitter theme?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
@@ -282,7 +305,16 @@ $admin_language = array(
 	'server_ip_maximum' => 'O IP do servidor precisa ter no máximo 64 caracteres',
 	'purge_errors' => 'Eliminar Erros',
 	'confirm_purge_errors' => 'Você tem certeza de que deseja eliminar todos os erros de query?',
-	'avatar_type' => 'Avatar type',
+	'avatar_type' => 'Tipo de Avatar',
+	'custom_usernames' => 'Force Minecraft usernames?',
+	'mcassoc' => 'mcassoc',
+	'use_mcassoc' => 'Use mcassoc?',
+	'use_mcassoc_help' => 'mcassoc ensures users own the Minecraft account they\'re registering with',
+	'mcassoc_key' => 'mcassoc Shared Key',
+	'invalid_mcassoc_key' => 'Chave do mcassoc invalida.',
+	'mcassoc_instance' => 'Instância mcassoc',
+	'mcassoc_instance_help' => 'Gerar um código de instância <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">aqui</a>',
+	'mcassoc_key_help' => 'Obter a sua chave mcassoc <a href="https://mcassoc.lukegb.com/" target="_blank">aqui</a>',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temas',
@@ -369,6 +401,7 @@ $user_language = array(
 	'username' => 'Usuário',
 	'minecraft_username' => 'Usuário Minecraft',
 	'email' => 'Email',
+	'user_title' => 'Título',
 	'email_address' => 'Endereço de email',
 	'date_of_birth' => 'Data de Nascimento',
 	'location' => 'Localização',
@@ -416,6 +449,11 @@ $user_language = array(
 	'location_required' => 'Por favor, informe uma localização.',
 	'location_minimum_2' => 'Sua localização deve ter um mínimo de 2 caracteres.',
 	'location_maximum_128' => 'Sua localização deve ter um máximo de 128 caracteres.',
+	'verify_account' => 'Verificar conta',
+	'verify_account_help' => 'Por favor, siga as instruções abaixo, assim nós podemos verificar se você possui a conta de Minecraft em questão.',
+	'verification_failed' => 'Falha ao verificar, por favor, tente de novo.',
+	'verification_success' => 'Verificada com sucesso! Agora você pode logar-se.',
+	'complete_signup' => 'Complete Signup',
 	
 	// UserCP
 	'user_cp' => 'UserCP',
@@ -532,12 +570,12 @@ $user_language = array(
 	'post_unliked' => 'Postagens reprovadas.',
 	'no_posts' => 'Nenhuma postagem.',
 	'last_5_posts' => 'Últimas 5 Postagens',
-	'follow' => 'Follow',
-	'unfollow' => 'Unfollow',
-	'name_history' => 'Name History',
-	'changed_name_to' => 'Changed name to: {x} on {y}', // Don't replace {x} or {y}
-	'original_name' => 'Original name:',
-	'name_history_error' => 'Unable to retrieve username history.',
+	'follow' => 'Seguir',
+	'unfollow' => 'Deixar de Seguir',
+	'name_history' => 'Histórico de Nomes',
+	'changed_name_to' => 'Nome alterado para: {x} em {y}', // Don't replace {x} or {y}
+	'original_name' => 'Nome original:',
+	'name_history_error' => 'Não foi possível recuperar o histórico do nome de usuário.',
 	
 	// Staff applications
 	'staff_application' => 'Entre na Staff',
@@ -588,6 +626,7 @@ $mod_language = array(
 	'user_profile' => 'Perfil de Usuário',
 	'comment_added' => 'Comentário Add.',
 	'new_report_submitted_alert' => 'Novo parecer enviado por {x} em relação ao usuário {y}', // Don't replace "{x}" or "{y}"
+	'ingame_report' => 'Ingame Report',
 	
 	// Staff applications
 	'comment_error' => 'Por favor, verifique se seu comentário possui de 2 à 2048 caracteres.',
@@ -742,6 +781,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Por favor, informe de 1 à 32 caracteres para pesquisar.',
+	'no_search_results' => 'No search results have been found.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Compartilhar',

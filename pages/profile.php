@@ -110,6 +110,29 @@ if(isset($profile)){
 							'content' => htmlspecialchars(Input::get('post_reply'))
 						));
 						
+						// Alert original post user
+						$original_post_id = $queries->getWhere('user_profile_wall_posts', array('id', '=', Input::get('pid')));
+						$original_post_id = $original_post_id[0]->author_id;
+						
+						if ($profile_user[0]->id !== $original_post_id && $profile_user[0]->id !== $user->data()->id) {
+							// Alert profile user
+							$queries->create('alerts', array(
+								'user_id' => $profile_user[0]->id,
+								'type' => 'Profile Post',
+								'url' => '/profile/' . $mcname,
+								'content' => htmlspecialchars($user->data()->username) . ' has replied to a post on your profile.',
+								'created' => date('U')
+							));
+						
+							$queries->create('alerts', array(
+								'user_id' => $original_post_id,
+								'type' => 'Profile Post',
+								'url' => '/profile/' . $mcname,
+								'content' => htmlspecialchars($user->data()->username) . ' has replied to your post on ' . htmlspecialchars($mcname) . '\'s profile.',
+								'created' => date('U')
+							));
+						}
+						
 						// Redirect to clear input
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
 						die();
@@ -147,6 +170,17 @@ if(isset($profile)){
 							'time' => date('U'),
 							'content' => htmlspecialchars(Input::get('wall_post'))
 						));
+						
+						if ($profile_user[0]->id !== $user->data()->id) {
+							// Alert user
+							$queries->create('alerts', array(
+								'user_id' => $profile_user[0]->id,
+								'type' => 'Profile Post',
+								'url' => '/profile/' . $mcname,
+								'content' => htmlspecialchars($user->data()->username) . ' has posted on your profile.',
+								'created' => date('U')
+							));
+						}
 						
 						// Redirect to clear input
 						echo '<script data-cfasync="false">window.location.replace("/profile/' . $mcname . '");</script>';
@@ -269,7 +303,7 @@ if(isset($profile)){
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="User profile page &bull; <?php echo $sitename; ?>">
-      <meta name="author" content="Samerton">
+      <meta name="author" content="<?php echo $sitename; ?>">
       <meta name="theme-color" content="#454545" />
       <?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 
@@ -295,10 +329,10 @@ if(isset($profile)){
             color: white;
         }
 		.image_container {
-			width: 262.5px;
-			height: 262.5px;
+			/* width: 262.5px;
+			height: 262.5px;*/
 			text-align: center;
-			line-height: 262.5px;
+			/*line-height: 262.5px;*/
 		}
       </style>
    </head>
@@ -551,20 +585,21 @@ if(isset($profile)){
 								$likes = $queries->getWhere('user_profile_wall_posts_likes', array('post_id', '=', $profile_posts[$n]->id));
 								$likes_count = count($likes);
 						?>
+						<div class="well">
                         <div class="row">
                            <label style="float:left; width:6%;">
 						    <?php
 						    // User avatar
-							echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 50px; width: 50px;" src="' . $user->getAvatar($post_user[$n]->id, "../", 50) . '" />';
+							echo '<img class="img-rounded" style="padding-bottom:2.5px; height: 50px; width: 50px;" src="' . $user->getAvatar($post_user[0]->id, "../", 50) . '" />';
 						    ?>
 						   </label>&nbsp;
                            <p style="float:right; width:93%;" type="text">
 						     <a href="/profile/<?php echo htmlspecialchars($user->idToMCName($profile_posts[$n]->author_id)); ?>"><strong><?php echo htmlspecialchars($user->idToName($profile_posts[$n]->author_id)); ?></strong></a> | <?php echo date('M j, Y', $profile_posts[$n]->time); ?>
 							 <br /><br />
-							 <?php echo $purifier->purify($profile_posts[$n]->content); ?>
+							 <?php echo $purifier->purify(htmlspecialchars_decode($profile_posts[$n]->content)); ?>
 						   </p>
                            <p style="float:right; width:93%;" type="text">
-						     <?php if($user->isLoggedIn()){ ?><a href="#" data-toggle="modal" data-target="#replyModal<?php echo $n; ?>"><?php echo $user_language['reply']; ?></a> | <?php } ?><a class="pop" href="<?php if($user->isLoggedIn()){ ?>/profile/<?php echo $mcname; ?>/?action=like&amp;post=<?php echo $profile_posts[$n]->id; } else echo '#'; ?>" title="<?php echo $user_language['likes']; ?>" data-content="<?php if($likes_count){ $i = 1; foreach($likes as $like){ echo '<a href=\'/profile/' . htmlspecialchars($user->idToMCName($like->user_id)) . '\'>' . htmlspecialchars($user->idToName($like->user_id)); if($i != $likes_count) echo ', '; echo '</a>'; $i++; } } else { echo $user_language['no_likes']; } ?>"><i class="fa fa-thumbs-o-up"></i> <?php echo str_replace('{x}', $likes_count, $user_language['x_likes']); ?></a><?php if($user->isLoggedIn() && $user->canViewMCP($user->data()->id)){ ?> | <a onclick="return confirm('<?php echo $forum_language['confirm_post_deletion']; ?>');" href="/profile/<?php echo $mcname; ?>/?action=delete&amp;pid=<?php echo $profile_posts[$n]->id; ?>"><?php echo $user_language['delete']; ?></a><?php } ?>
+						     <?php if($user->isLoggedIn()){ ?><a href="#" data-toggle="modal" data-target="#replyModal<?php echo $n; ?>"><?php echo $user_language['reply']; ?></a> | <?php } ?><a class="pop" href="<?php if($user->isLoggedIn() && $user->data()->id != $profile_posts[$n]->author_id){ ?>/profile/<?php echo $mcname; ?>/?action=like&amp;post=<?php echo $profile_posts[$n]->id; } else echo '#'; ?>" title="<?php echo $user_language['likes']; ?>" data-content="<?php if($likes_count){ $i = 1; foreach($likes as $like){ echo '<a href=\'/profile/' . htmlspecialchars($user->idToMCName($like->user_id)) . '\'>' . htmlspecialchars($user->idToName($like->user_id)); if($i != $likes_count) echo ', '; echo '</a>'; $i++; } } else { echo $user_language['no_likes']; } ?>"><i class="fa fa-thumbs-o-up"></i> <?php echo str_replace('{x}', $likes_count, $user_language['x_likes']); ?></a><?php if($user->isLoggedIn() && $user->canViewMCP($user->data()->id)){ ?> | <a onclick="return confirm('<?php echo $forum_language['confirm_post_deletion']; ?>');" href="/profile/<?php echo $mcname; ?>/?action=delete&amp;pid=<?php echo $profile_posts[$n]->id; ?>"><?php echo $user_language['delete']; ?></a><?php } ?>
 						   </p>
 						   <?php
 						   // Replies
@@ -594,6 +629,7 @@ if(isset($profile)){
 						   }
 						   ?>
                         </div>
+						</div>
 						<hr />
 						<?php
 								// Reply modal
@@ -635,6 +671,7 @@ if(isset($profile)){
                      </div>
                      <div role="tabpanel" class="tab-pane" id="forum">
                         <br />
+				    <div class="well">
                         <?php 
                            // Check if the user has registered on the website
                            if($exists == true){
@@ -648,6 +685,7 @@ if(isset($profile)){
                               echo $user_language['user_hasnt_registered'];
                            } 
                            ?>
+				     </div>
                      </div>
                      <div role="tabpanel" class="tab-pane" id="topics-and-comments">
 					    <?php
@@ -680,6 +718,9 @@ if(isset($profile)){
 								
 								if($permission != true) continue;
 								
+								// Check the post isn't deleted
+								if($latest_post->deleted == 1) continue;
+								
 								// Get topic title
 								$topic_title = $queries->getWhere('topics', array('id', '=', $latest_post->topic_id));
 								$topic_title = htmlspecialchars($topic_title[0]->topic_title);
@@ -704,6 +745,7 @@ if(isset($profile)){
 						?>
                      </div>
                      <div role="tabpanel" class="tab-pane" id="name_history">
+					 <div class="well">
 						<?php
 							// Name history
 							// Check database
@@ -816,6 +858,7 @@ if(isset($profile)){
 								}
 							}
 						?>
+				   </div>
                      </div>
                   </div>
                 </div>

@@ -34,7 +34,7 @@ $adm_page = "minecraft";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Admin panel">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
@@ -73,6 +73,7 @@ $adm_page = "minecraft";
 			<li<?php if(!isset($_GET['view'])){ ?> class="active"<?php } ?>><a href="/admin/minecraft"><?php echo $admin_language['settings']; ?></a></li>
 			<li<?php if(isset($_GET['view']) && $_GET['view'] == 'servers'){ ?> class="active"<?php } ?>><a href="/admin/minecraft/?view=servers"><?php echo $admin_language['servers']; ?></a></li>
 		    <li<?php if(isset($_GET['view']) && $_GET['view'] == 'errors'){ ?> class="active"<?php } ?>><a href="/admin/minecraft/?view=errors"><?php echo $admin_language['query_errors']; ?></a></li>
+			<li<?php if(isset($_GET['view']) && $_GET['view'] == 'mcassoc'){ ?> class="active"<?php } ?>><a href="/admin/minecraft/?view=mcassoc"><?php echo $admin_language['mcassoc']; ?></a></li>
 		  </ul>
 		  <hr>
 		  <div class="well">
@@ -102,6 +103,11 @@ $adm_page = "minecraft";
 					} else {
 						$status_module = 'false';
 					}
+					if(Input::get('usernames') == 'on'){
+						$usernames = 'false';
+					} else {
+						$usernames = 'true';
+					}
 					
 					// Update values
 					$uuids_id = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
@@ -128,6 +134,19 @@ $adm_page = "minecraft";
 						'value' => $status_module
 					));
 					
+					$username_id = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+					$username_id = $username_id[0]->id;
+					$queries->update('settings', $username_id, array(
+						'value' => $usernames
+					));
+					
+					$avatar_id = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
+					$avatar_id = $avatar_id[0]->id;
+					
+					$queries->update('settings', $avatar_id, array(
+						'value' => htmlspecialchars(Input::get('avatar_type'))
+					));
+					
 				} else {
 					// Invalid token
 					Session::flash('mc_settings', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
@@ -139,6 +158,8 @@ $adm_page = "minecraft";
 			$user_avatars = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
 			$link_uuids = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
 			$server_status = $queries->getWhere('settings', array('name', '=', 'mc_status_module'));
+			$usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
+			$avatar_type = $queries->getWhere('settings', array('name', '=', 'avatar_type'));
 			
 			if(Session::exists('mc_settings')){
 				echo Session::flash('mc_settings');
@@ -170,6 +191,19 @@ $adm_page = "minecraft";
 					<span class="pull-right">
 					  <input id="status_module" name="status_module" type="checkbox" class="js-switch" <?php if($server_status[0]->value == 'true'){ ?>checked <?php } ?>/>
 					</span>
+				  </div>
+				  <div class="form-group">
+				    <label for="usernames"><?php echo $admin_language['custom_usernames']; ?></label>
+					<span class="pull-right">
+					  <input id="usernames" name="usernames" type="checkbox" class="js-switch" <?php if($usernames[0]->value == 'false'){ ?>checked <?php } ?>/>
+					</span>
+				  </div>
+				  <div class="form-group">
+			        <label for="avatar_type"><?php echo $admin_language['avatar_type']; ?></label>
+				    <select id="avatar_type" name="avatar_type" class="form-control">
+					  <option value="helmavatar"<?php if($avatar_type[0]->value == 'helmavatar') echo ' selected'; ?>>helmavatar</option>
+					  <option value="avatar"<?php if($avatar_type[0]->value == 'avatar') echo ' selected'; ?>>avatar</option>
+					</select>
 				  </div>
 				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 				  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
@@ -643,6 +677,88 @@ $adm_page = "minecraft";
 						echo '<div class="panel panel-danger"><div class="panel-body"><p>' . htmlspecialchars($query_error->error) . '</p></div></div>';
 					}
 				}
+			} else if(!isset($_GET['settings']) && isset($_GET['view']) && $_GET['view'] == 'mcassoc'){
+				if(Input::exists()){
+					// Check token
+					if(Token::check(Input::get('token'))){
+						// Validate input
+						$validate = new Validate();
+						$validation = $validate->check($_POST, array(
+							'mcassoc_key' => array(
+								'max' => 128
+							)
+						));
+						
+						if($validation->passed()){
+							// Update database
+							if(Input::get('use_mcassoc') == 'on'){
+								$use_mcassoc = 1;
+							} else {
+								$use_mcassoc = 0;
+							}
+							
+							$use_mcassoc_id = $queries->getWhere('settings', array('name', '=', 'use_mcassoc'));
+							$queries->update('settings', $use_mcassoc_id[0]->id, array(
+								'value' => $use_mcassoc
+							));
+							
+							$mcassoc_key = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
+							$queries->update('settings', $mcassoc_key[0]->id, array(
+								'value' => htmlspecialchars(Input::get('mcassoc_key'))
+							));
+							
+						} else {
+							// Invalid key
+							$message = '<div class="alert alert-danger">' . $admin_language['invalid_mcassoc_key'] . '</div>';
+						}
+						
+					} else {
+						// Invalid token
+						$message = '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>';
+					}
+				}
+				
+				// Get mcassoc settings
+				$use_mcassoc = $queries->getWhere('settings', array('name', '=', 'use_mcassoc'));
+				$use_mcassoc = $use_mcassoc[0]->value;
+				
+				$mcassoc_key = $queries->getWhere('settings', array('name', '=', 'mcassoc_key'));
+				$mcassoc_key = htmlspecialchars($mcassoc_key[0]->value);
+				
+				$mcassoc_instance = $queries->getWhere('settings', array('name', '=', 'mcassoc_instance'));
+				$mcassoc_instance = htmlspecialchars($mcassoc_instance[0]->value);
+				
+			?>
+			<h3><?php echo $admin_language['mcassoc']; ?></h3>
+			<?php if(isset($message)) echo $message; ?>
+			<form action="" method="post">
+			  <div class="form-group">
+			    <div class="row">
+			      <div class="col-md-5">
+				    <div class="form-group">
+				  	  <label for="use_mcassoc"><?php echo $admin_language['use_mcassoc']; ?></label> <a class="btn btn-info btn-xs" href="#" data-toggle="popover" data-content="<?php echo $admin_language['use_mcassoc_help']; ?>"><i class="fa fa-question-circle"></i></a>
+					  <span class="pull-right">
+					    <input id="use_mcassoc" name="use_mcassoc" type="checkbox" class="js-switch" <?php if($use_mcassoc == '1'){ ?>checked <?php } ?>/>
+					  </span>
+				    </div>
+				  </div>
+			    </div>
+				<div class="form-group">
+				  <label for="mcassoc_key"><?php echo $admin_language['mcassoc_key']; ?></label>
+				  <input type="text" class="form-control" name="mcassoc_key" id="mcassoc_key" value="<?php echo $mcassoc_key; ?>" placeholder="<?php echo $admin_language['mcassoc_key']; ?>">
+				</div>
+				<div class="form-group">
+				  <label for="mcassoc_instance"><?php echo $admin_language['mcassoc_instance']; ?></label>
+				  <input type="text" class="form-control" name="mcassoc_instance" id="mcassoc_instance" value="<?php echo $mcassoc_instance; ?>" placeholder="<?php echo $admin_language['mcassoc_instance']; ?>">
+				  <p><?php echo $admin_language['mcassoc_instance_help']; ?></p>
+				</div>
+				<div class="form-group">
+				  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+				  <input type="submit" class="btn btn-primary" value="<?php echo $general_language['submit']; ?>">
+				</div>
+			  </div>
+			</form>
+			<?php
 			}
 			?>
 		  </div>

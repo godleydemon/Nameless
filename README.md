@@ -1,8 +1,10 @@
-# NamelessMC - version 1.0.10
+# NamelessMC - version 1.0.15
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0.10 features:
+NamelessMC version 2.0 will be released in the near future. Make sure to leave any feedback for this update!
+
+Version 1.0.15 features:
 
 - Template and theme system
 - Languages
@@ -11,17 +13,18 @@ Version 1.0.10 features:
 - Forum topic labels (not yet permission based, working on that)
 - Subforums
 - Alerts system, including popup notifications upon user tagging or a new staff application
-- Small additions including page loading time and the ability to enable/disable error reporting from the AdminCP
-- New optional email system
-- Upcoming API
+- Email configuration
+- API
 - Ability to disable UUID linking, allowing support for offline mode servers
-- Completion of custom page system
+- Custom page system
 - Server statistics integration
 - Staff and member lists
 - Minecraft status
 - reCAPTCHA option
 - Voice server viewer
 - Two factor authentication
+- Minecraft account verification
+- Announcements
 
 Included addons:
 - Donate
@@ -46,9 +49,17 @@ Upcoming addons (these will need to be downloaded separately):
 * [Support](http://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 * [Download](https://github.com/NamelessMC/Nameless/releases) 
 
+# Full Staff list:
+**Project**
+* @Samerton
+* @Fellings1
+* @partydragen
+* @SystemUpdate
+
 # Full contributor list:
 **Main repository**
 * @Samerton
+* @Fellings1
 * @j0ach1mmall3
 * @dwilson390
 * @Root3287
@@ -69,28 +80,35 @@ Upcoming addons (these will need to be downloaded separately):
 * @ConnorLinfoot
 * @RobinMCNetwork
 * @PugaBear
+* @Tim-NL
+* @godleydemon
+* @yshf9
+* @Saphiria
+* @dasilvaj4 
+* @tombomb
 
 **[NamelessMC Website](http://namelessmc.github.io/)**
 * @Samerton
 * @SystemUpdate
+* @Fellings1
 
-**[NamelessMC Plugin](https://github.com/NamelessMC/Plugin)**
+**[NamelessMC Plugin](https://github.com/NamelessMC/Nameless-Plugin)**
 * @SystemUpdate
 
 **NamelessMC Translations**
-* English: @Samerton
-* German: @LPkkjHD & @manuelgu
+* English: @Samerton, @Fellings1
+* German: @LPkkjHD, @manuelgu, @BukkitTNT, philipp0002, @McLive, @Cl1608Ho and @monjo44
 * Spanish: @paloke, @lockerecca, @talkahe, @mrlost, Dexkum and @Ariuw
 * Czech: SnooWiK
 * Norsk: @partydragen
 * Slovak: @Marki35
 * French: @CreaModZ
-* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw and @melerpe
+* Dutch: Sander Jochems, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @RobinMCNetwork and smessie
 * Finnish: -kakara-
-* Portuguese: @dgateles
+* Portuguese: @dgateles, @dasilvaj4
 
-**NamelessMC On Spigot**
-* Resource: @Saphiria
+## Discord
+[<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/r7Eq4jw)
 
 ## IRC
-\#NamelessMC on irc.spi.gt
+\#NamelessMC on [irc.spi.gt](http://irc.spi.gt/iris/?channels=namelessmc)

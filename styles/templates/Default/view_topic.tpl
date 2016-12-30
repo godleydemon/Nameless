@@ -1,5 +1,4 @@
 <div class="container">
-  <br />
   {$BREADCRUMBS}
   
   {$SESSION_SUCCESS_POST}
@@ -27,6 +26,8 @@
 			  <strong><a href="/profile/{$reply.mcname}">{$reply.username}</a></strong>
 			  <br />
 			  {$reply.user_group}
+			  <br />
+			  {$reply.user_title}
 			  <hr>
 			  {$reply.user_posts_count} {$POSTS}<br />
 			  {$reply.user_reputation} {$REPUTATION}<br /><br />

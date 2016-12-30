@@ -94,7 +94,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="The homepage for the <?php echo $sitename; ?> community">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
     <meta name="theme-color" content="#454545" />
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
@@ -144,13 +144,14 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	$latest_news = $forum->getLatestNews(5); // Get latest 5 items
 	
 	// HTML Purifier
-	require('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
+	require_once('core/includes/htmlpurifier/HTMLPurifier.standalone.php');
 	$config = HTMLPurifier_Config::createDefault();
 	$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 	$config->set('URI.DisableExternalResources', false);
 	$config->set('URI.DisableResources', false);
-	$config->set('HTML.Allowed', 'u,p,b,a,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
-	$config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
+	$config->set('CSS.Trusted', true);
+	$config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+	$config->set('CSS.AllowedProperties', array('position', 'padding-bottom', 'padding-top', 'top', 'left', 'height', 'width', 'overflow', 'text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
 	$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
 	$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 	$config->set('HTML.SafeIframe', true);
@@ -167,7 +168,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 			'date' => date('d M Y, H:i', $item['topic_date']),
 			'title' => htmlspecialchars($item['topic_title']),
 			'views' => $item['topic_views'],
-			'replies' => $item['replies'],
+			'replies' => ($item['replies'] - 1),
 			'author_mcname' => htmlspecialchars($user->idToMCName($item['author'])),
 			'author_username' => htmlspecialchars($user->idToName($item['author'])),
 			'author_avatar' => $avatar,
@@ -178,14 +179,9 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 	$smarty->assign('newsArray', $news);
 
 	// Twitter feed
-	if(isset($twitter_feed_query) && $twitter_feed_query[0]->value !== 'null'){
-		if($twitter_feed_query[0]->value == '0'){
-			// Disabled
-			$twitter = '';
-		} else {
-			// Enabled
-			$twitter = '<a class="twitter-timeline" data-height="600" href="' . htmlspecialchars($twitter_url[0]->value) . '">Tweets</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
-		}
+	if(isset($use_twitter_feed) && $use_twitter_feed == true){
+		// Enabled
+		$twitter = '<a class="twitter-timeline" ' . (isset($twitter_theme_dark) ? 'data-theme="dark" ' : '') . ' data-height="600" href="' . htmlspecialchars($twitter_url[0]->value) . '">Tweets</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
 	} else {
 		$twitter = '';
 	}
@@ -218,7 +214,7 @@ $smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_lan
 
 					// build and display HTML treeview using custom image paths (remote icons will be embedded using data URI sheme)
 					$viewer = $ts3_VirtualServer->getViewer(new TeamSpeak3_Viewer_Html("core/assets/img/ts3/viewer/", "core/assets/img/ts3/flags/", "data:image"));
-					$viewer .= '<br /><center><a href="ts3server://' . htmlspecialchars($voice_server_ip) . '" class="btn btn-primary">' . $general_language['join'] . '</a></center>';
+					$viewer .= '<br /><center><a href="ts3server://' . htmlspecialchars($voice_server_ip) . ':' . htmlspecialchars($voice_server_port) . '" class="btn btn-primary">' . $general_language['join'] . '</a></center>';
 				
 					// Cache
 					$c->store('ts', $viewer, 300); // cache for 5 mins

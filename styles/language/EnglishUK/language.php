@@ -31,6 +31,7 @@ $admin_language = array(
 	
 	// Admin sidebar
 	'index' => 'Overview',
+	'announcements' => 'Announcements',
 	'core' => 'Core',
 	'custom_pages' => 'Custom Pages',
 	'general' => 'General',
@@ -41,10 +42,31 @@ $admin_language = array(
 	'addons' => 'Addons',
 	'update' => 'Update',
 	'misc' => 'Misc',
+	'help' => 'Help',
 	
 	// Admin index page
 	'statistics' => 'Statistics',
 	'registrations_per_day' => 'Registrations per day (last 7 days)',
+	
+	// Admin announcements page
+	'current_announcements' => 'Current Announcements',
+	'create_announcement' => 'Create Announcement',
+	'announcement_content' => 'Announcement Content',
+	'announcement_location' => 'Announcement Location',
+	'announcement_can_close' => 'Can close announcement?',
+	'announcement_permissions' => 'Announcement Permissions',
+	'no_announcements' => 'No announcements created yet.',
+	'confirm_cancel_announcement' => 'Are you sure you want to cancel this announcement?',
+	'announcement_location_help' => 'Ctrl-click to select multiple pages',
+	'select_all' => 'Select All',
+	'deselect_all' => 'Deselect All',
+	'announcement_created' => 'Announcement successfully created',
+	'please_input_announcement_content' => 'Please input announcement content and select a type',
+	'confirm_delete_announcement' => 'Are you sure you want to delete this announcement?',
+	'announcement_actions' => 'Announcement Actions',
+	'announcement_deleted' => 'Announcement successfully deleted',
+	'announcement_type' => 'Announcement Type',
+	'can_view_announcement' => 'Can view announcement?',
 	
 	// Admin core page
 	'general_settings' => 'General Settings',
@@ -80,7 +102,8 @@ $admin_language = array(
 	'google_analytics_help' => 'See <a href="https://support.google.com/analytics/answer/1008080?hl=en#GA" target="_blank">this guide</a> for more information, following steps 1 to 3.',
 	'social_media_links' => 'Social Media Links',
 	'youtube_url' => 'YouTube URL',
-	'twitter_url' => 'Twitter URL',
+	'twitter_url' => 'Twitter URL (Don\'t end with \'/\')',
+	'twitter_dark_theme' => 'Use dark Twitter theme?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
@@ -235,10 +258,10 @@ $admin_language = array(
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Minecraft Settings',
-	'use_plugin' => 'Use Nameless Minecraft plugin?',
+	'use_plugin' => 'Enable Nameless API?',
 	'force_avatars' => 'Force Minecraft avatars?',
 	'uuid_linking' => 'Enable UUID linking?',
-	'use_plugin_help' => 'Using the plugin allows for rank synchronisation and also ingame registration and ticket submission.',
+	'use_plugin_help' => 'Enabling the API, along with the upcoming server plugin, allows for rank synchronisation and also ingame registration and report submission.',
 	'uuid_linking_help' => 'If disabled, user accounts won\'t be linked with UUIDs. It is highly recommended you keep this as enabled.',
 	'plugin_settings' => 'Plugin Settings',
 	'confirm_api_regen' => 'Are you sure you want to generate a new API key?',
@@ -279,6 +302,15 @@ $admin_language = array(
 	'purge_errors' => 'Purge Errors',
 	'confirm_purge_errors' => 'Are you sure you want to purge all query errors?',
 	'avatar_type' => 'Avatar type',
+	'custom_usernames' => 'Force Minecraft usernames?',
+	'mcassoc' => 'mcassoc',
+	'use_mcassoc' => 'Use mcassoc?',
+	'use_mcassoc_help' => 'mcassoc ensures users own the Minecraft account they\'re registering with',
+	'mcassoc_key' => 'mcassoc Shared Key',
+	'invalid_mcassoc_key' => 'Invalid mcassoc key.',
+	'mcassoc_instance' => 'mcassoc Instance',
+	'mcassoc_instance_help' => 'Generate an instance code <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">here</a>',
+	'mcassoc_key_help' => 'Get your mcassoc key <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Themes',
@@ -365,6 +397,7 @@ $user_language = array(
 	'username' => 'Username',
 	'minecraft_username' => 'Minecraft Username',
 	'email' => 'Email',
+	'user_title' => 'Title',
 	'email_address' => 'Email Address',
 	'date_of_birth' => 'Date of Birth',
 	'location' => 'Location',
@@ -412,6 +445,11 @@ $user_language = array(
 	'location_required' => 'Please enter a location.',
 	'location_minimum_2' => 'Your location must be a minimum of 2 characters.',
 	'location_maximum_128' => 'Your location must be a maximum of 128 characters.',
+	'verify_account' => 'Verify account',
+	'verify_account_help' => 'Please follow the instructions below so we can verify you own the Minecraft account in question.',
+	'verification_failed' => 'Verification failed, please try again.',
+	'verification_success' => 'Successfully validated! You can now log in.',
+	'complete_signup' => 'Complete Signup',
 	
 	// UserCP
 	'user_cp' => 'UserCP',
@@ -584,6 +622,7 @@ $mod_language = array(
 	'user_profile' => 'User Profile',
 	'comment_added' => 'Comment added.',
 	'new_report_submitted_alert' => 'New report submitted by {x} regarding user {y}', // Don't replace "{x}" or "{y}"
+	'ingame_report' => 'Ingame Report',
 	
 	// Staff applications
 	'comment_error' => 'Please ensure your comment is between 2 and 2048 characters long.',
@@ -738,6 +777,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Please input a search query between 1 and 32 characters long.',
+	'no_search_results' => 'No search results have been found.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Share',

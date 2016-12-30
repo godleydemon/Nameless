@@ -34,7 +34,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?php echo $sitename; ?> Forum Index">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
 	<?php
@@ -232,7 +232,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 			$posts = count($posts);
 			
 			// Get a string containing HTML code for a user's avatar. This depends on whether custom avatars are enabled or not, and also which Minecraft avatar source we're using
-			$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($discussions[$n]['topic_last_user'], "../", 30) . '" />';
+			$last_reply_avatar = '<img class="img-centre img-rounded" style="max-height:30px;max-width:30px;" src="' .  $user->getAvatar($discussions[$n]['topic_last_user'], "../", 30) . '" />';
 			
 			// Is there a label?
 			if($discussions[$n]['label'] != 0){ // yes
@@ -341,11 +341,25 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 					// Get stats
 					$topics_count = $queries->getWhere("topics", array("forum_id", "=", $item["id"]));
 					$topics_count = count($topics_count);
+					
+					// New way of couting posts, in this way post of deleted topics are not counted.
 					$posts_count = $queries->getWhere("posts", array("forum_id", "=", $item["id"]));
-					$posts_count = count($posts_count);
+                    			$count_posts = array();
+
+                    			foreach ($posts_count as $row){
+                        			// Get topic from posts
+                        			$topic = $queries->getWhere("topics", array("id", "=", $row->topic_id));
+                        			// Check if exists
+                        			if (count($topic) != 0){
+                            				$count_posts[] = $row;
+                        			}
+                    			}
+
+                    			// Count posts
+					$posts_count = count($count_posts);
 				
 					// Get avatar of user who last posted
-					$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($item['last_user_posted'], "../", 30) . '" />';
+					$last_reply_avatar = '<img class="img-centre img-rounded" style="max-height:30px;max-width:30px;" src="' .  $user->getAvatar($item['last_user_posted'], "../", 30) . '" />';
 					
 					// Get the last topic posted in
 					$last_topic = '';
@@ -421,7 +435,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTML Purif
 			}
 
 			// Get avatar of user
-			$last_reply_avatar = '<img class="img-centre img-rounded" style="width:27.7px; height:27.7px;" src="' .  $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
+			$last_reply_avatar = '<img class="img-centre img-rounded" style="max-height:30px;max-width:30px;" src="' .  $user->getAvatar($item['topic_last_user'], "../", 30) . '" />';
 			
 			$latest_posts[] = array(
 				'topic_id' => $item['id'],

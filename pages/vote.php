@@ -6,7 +6,7 @@
  *  License: MIT
  */
 
-// Donation addon page
+// Vote addon page
 $page = $vote_language['vote_icon'] . $vote_language['vote']; // for navbar
 
 // Ensure the addon is enabled
@@ -23,7 +23,7 @@ if(!in_array('Vote', $enabled_addon_pages)){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Vote page for the <?php echo $sitename; ?> community">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
     <meta name="theme-color" content="#454545" />
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 
@@ -145,9 +145,6 @@ if(!in_array('Vote', $enabled_addon_pages)){
 	<?php
 	}
 	?>
-	<hr>
-	
-	<div class="alert alert-info"><?php echo $vote_language['top_voters']; ?></div>
 	  
     </div>
 		

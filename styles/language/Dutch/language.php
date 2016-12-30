@@ -1,17 +1,13 @@
 <?php 
 /*
  *  Made by Sander Jochems
- *  http://sanderjochems.r4u.nl
- */
- /*
+ *  http://www.sanderjochems.nl
+ *
  *  Updated by jesseke55/Headhunterz_
  *  http://headhunterz.pw
- */
-  /*
- *  Updated by melerpe
  *
- */
-/*
+ *  Updated and removed syntax error by melerpe
+ *
  *  Dutch Language
  */
   
@@ -21,7 +17,7 @@
 $admin_language = array(
     // General terms
     'admin_cp' => 'AdminCP', 
-    'infractions' => 'Schennis',
+    'infractions' => 'Straffen',
     'invalid_token' => 'Ongeldige token, probeer het opnieuw',
     'invalid_action' => 'Ongeldige Actie',
     'successfully_updated' => 'Succesvol bijgewerkt',
@@ -36,6 +32,7 @@ $admin_language = array(
      
     // Admin sidebar
     'index' => 'Overzicht',
+	'announcements' => 'Announcements',
     'core' => 'Kern',
     'custom_pages' => 'Aangepaste pagina\'s',
     'general' => 'Algemeen',
@@ -46,11 +43,32 @@ $admin_language = array(
     'addons' => 'Uitbreidingen',
     'update' => 'Update',
     'misc' => 'Misc',
+    'help' => 'Help',
      
     // Admin index page
     'statistics' => 'Statistieken',
     'registrations_per_day' => 'Registraties per dag (7 dagen geleden)',
-     
+
+    // Admin announcements page
+    'current_announcements' => 'Huidige Aankondigingen',
+    'create_announcement' => 'Maak Aankondiging',
+    'announcement_content' => 'Inhoud Aankondiging',
+    'announcement_location' => 'Locatie Aankondiging',
+    'announcement_can_close' => 'Kan aankondiging sluiten?',
+    'announcement_permissions' => 'Aankondiging permissies',
+    'no_announcements' => 'Nog geen aankondigingen gemaakt.',
+    'confirm_cancel_announcement' => 'Bent u zeker dat u deze aankondiging wilt annuleren?',
+    'announcement_location_help' => 'Ctrl-klik om meerdere pagina\'s te selecteren.',
+    'select_all' => 'Selecteer alles',
+    'deselect_all' => 'Deselecteer alles',
+    'announcement_created' => 'Aankondiging succesvol aangemaakt!',
+    'please_input_announcement_content' => 'Voer een aankondiging in en selecteer een type alstublieft.',
+    'confirm_delete_announcement' => 'Bent u zeker dat u de aankondiging wilt verwijderen?',
+    'announcement_actions' => 'Aankondiging acties',
+    'announcement_deleted' => 'Aankondiging succesvol verwijderd!',
+    'announcement_type' => 'Aankondiging type',
+    'can_view_announcement' => 'Kan de aankondiging bekijken?',
+
     // Admin core page
     'general_settings' => 'Algemene Instellingen',
     'modules' => 'Modules',
@@ -86,6 +104,7 @@ $admin_language = array(
 	'social_media_links' => 'Social Media Links',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
+	'twitter_dark_theme' => 'Gebruik dark Twitter thema?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
@@ -100,9 +119,9 @@ $admin_language = array(
 	'discord_id' => 'Discord Server ID',
 	'voice_server_help' => 'Voer de gebruikersgegevens in voor de ServerQuery.',
 	'ip_without_port' => 'IP (Zonder poort)',
-	'voice_server_port' => 'Poort (Gewoonlijk 10011)',
-	'virtual_port' => 'Virtuele Poort (Gewoonlijk 9987)',
-	'permissions' => 'Toestemmingen:',
+	'voice_server_port' => 'Poort (Standaard 10011)',
+	'virtual_port' => 'Virtuele Poort (Standaard 9987)',
+	'permissions' => 'Rechten:',
 	'view_applications' => 'Bekijk Aanvragen?',
 	'accept_reject_applications' => 'Accepteer/Weiger Aanvragen?',
 	'questions' => 'Vragen:',
@@ -186,7 +205,7 @@ $admin_language = array(
 	'input_forum_title' => 'Input a forum title.',
 	'input_forum_description' => 'Vul een forum beschrijving in (HTML codes mogen worden gebruikt).',
 	'forum_name_minimum' => 'De forum naam moet minstens uit 2 tekens bestaan.',
-	'forum_description_minimum' => 'The forum description must be a minimum of 2 characters. De forum beschrijving moet minstens uit 2 tekens bestaan.',
+	'forum_description_minimum' => 'De forum beschrijving moet minstens uit 2 tekens bestaan.',
 	'forum_name_maximum' => 'De forum naam mag maar maximaal 150 tekens bevatten.',
 	'forum_description_maximum' => 'De forum beschrijving mag maar uit 255 tekens bestaan.',
 	'forum_type_forum' => 'Discussion Forum',
@@ -229,7 +248,7 @@ $admin_language = array(
     'group_staff' => 'Is de groep een staff groep?',
     'group_modcp' => 'Kan de groep de ModCP bekijken?',
     'group_admincp' => 'Kan de groep de AdminCP bekijken?',
-	'group_name_required' => 'Je moet een groepnaam invullen.',
+	'group_name_required' => 'Groepnaam invullen is verplicht.',
 	'group_name_minimum' => 'De groep naam moet uit minimaal 2 tekens bestaan.',
 	'group_name_maximum' => 'De groep naam mag maar uit 20 tekens bestaan.',
 	'html_maximum' => 'De groep HTML mag maar maximaal uit 1024 tekens bestaan.',
@@ -284,18 +303,27 @@ $admin_language = array(
 	'purge_errors' => 'Verwijder foutmeldingen',
 	'confirm_purge_errors' => 'Weet je het zeker dat je de foutmeldingen wilt verwijderen>',
 	'avatar_type' => 'Avatar type',
+	'custom_usernames' => 'Force Minecraft usernames?',
+	'mcassoc' => 'mcassoc',
+	'use_mcassoc' => 'Gebruik mcassoc?',
+	'use_mcassoc_help' => 'mcassoc kijkt na of mensen echt eigenaar van het Minecraft account zijn.',
+	'mcassoc_key' => 'mcassoc Gedeelde Sleutel',
+	'invalid_mcassoc_key' => 'Ongeldige mcassoc sleutel.',
+	'mcassoc_instance' => 'mcassoc Instance',
+	'mcassoc_instance_help' => 'Generate an instance code <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">here</a>',
+	'mcassoc_key_help' => 'Get your mcassoc key <a href="https://mcassoc.lukegb.com/" target="_blank">here</a>',
 
     // Admin Themes, Templates and Addons
     'themes' => 'Thema\'s',
-    'templates' => 'Templates',
+    'templates' => 'Sjablonen',
     'installed_themes' => 'Geinstaleerde Thema\'s',
-    'installed_templates' => 'Geinstaleerde templates',
+    'installed_templates' => 'Geinstaleerde sjablonen',
     'installed_addons' => 'Geinstaleerde addons',
     'install_theme' => 'Installeer Thema',
-    'install_template' => 'Installeer Template',
+    'install_template' => 'Installeer Sjabloon',
     'install_addon' => 'Installeer Addon',
     'install_a_theme' => 'Installeer een thema',
-    'install_a_template' => 'Installeer een template',
+    'install_a_template' => 'Installeer een Sjabloon',
     'install_an_addon' => 'Installeer een addon',
     'active' => 'Actief',
     'activate' => 'Activeer',
@@ -368,10 +396,11 @@ $user_language = array(
     'authme_password' => 'AuthMe Wachtwoord',
     'username' => 'Username',
     'minecraft_username' => 'Minecraft Username',
-    'email' => 'Email',
+    'email' => 'E-mail',
     'email_address' => 'Email Adres',
 	'date_of_birth' => 'Geboortedatum',
 	'location' => 'Locatie',
+    'user_title' => 'Titel',
     'password' => 'Wachtwoord',
     'confirm_password' => 'Bevestig Wachtwoord',
     'i_agree' => 'Ik Accepteer',
@@ -416,7 +445,12 @@ $user_language = array(
 	'location_required' => 'Vul een locatie in.',
 	'location_minimum_2' => 'Je locatie moet minstens uit 2 tekens bestaan.',
 	'location_maximum_128' => 'Je locatie mag maar uit 128 tekens bestaan.',
-     
+	'verify_account' => 'Verifieer account',
+	'verify_account_help' => 'Volg a.u.b. de stappen zodat wij kunnen zie of u eigenaar bent van het account',
+	'verification_failed' => 'Verificatie mislukt. Probeer a.u.b. Opnieuw',
+	'verification_success' => 'Verificatie gelukt! Je kan nu inloggen.',
+	'complete_signup' => 'Complete Signup',
+
     // UserCP
     'user_cp' => 'UserCP',
     'no_file_chosen' => 'Geen bestand gekozen',
@@ -444,7 +478,7 @@ $user_language = array(
      
     // Profile settings
     'display_name' => 'Weergavenaam',
-    'upload_an_avatar' => 'Upload een avatar (.jpg, .png or .gif only):',
+    'upload_an_avatar' => 'Upload een avatar (aleen .jpg, .png of .gif):',
     'use_gravatar' => 'Gebruik Gravatar?',
     'change_password' => 'Verander wachtwoord',
     'current_password' => 'Huidig wachtwoord',
@@ -522,7 +556,7 @@ $user_language = array(
 	'write_on_own_profile' => 'Plaats iets op je profiel...',
 	'profile_posts' => 'Profiel Berichten.',
 	'no_profile_posts' => 'Er zijn nog geen profiel berichten.',
-	'invalid_wall_post' => 'Ongeldige muur post. Verzorg ervoor dat je post tussen de 2 en 2048 tekens is.',
+	'invalid_wall_post' => 'Ongeldige profiel post. Zorg ervoor dat je post tussen de 2 en 2048 tekens is.',
 	'about' => 'Over',
 	'reply' => 'Antwoord',
 	'x_likes' => '{x} likes', // Don't replace {x}
@@ -532,16 +566,16 @@ $user_language = array(
 	'post_unliked' => 'Bericht unliked.',
 	'no_posts' => 'Geen berichten.',
 	'last_5_posts' => 'Recentste 5 berichten',
-	'follow' => 'Follow',
-	'unfollow' => 'Unfollow',
-	'name_history' => 'Name History',
-	'changed_name_to' => 'Changed name to: {x} on {y}', // Don't replace {x} or {y}
-	'original_name' => 'Original name:',
-	'name_history_error' => 'Unable to retrieve username history.',
+	'follow' => 'Volg',
+	'unfollow' => 'Ontvolgen',
+	'name_history' => 'Namegeschiedenis',
+	'changed_name_to' => 'Veranderd naar: {x} op {y}', // Don't replace {x} or {y}
+	'original_name' => 'Originele name:',
+	'name_history_error' => 'Kan geen naam historie opvragen.',
 
     // Staff applications
-    'staff_application' => 'Staff Application',
-    'application_submitted' => 'Application succesvol ingediend.',
+    'staff_application' => 'Staff Aanvraag',
+    'application_submitted' => 'Aanvraag succesvol ingediend.',
     'application_already_submitted' => 'U heeft al een aanvraag ingediend. U moet wachten totdat hij beantwoord is voordat u een andere kan maken.',
     'not_logged_in' => 'U moet inloggen om deze pagina te bekijken.',
     'application_accepted' => 'Uw staff aanvraag is geaccepteerd.',
@@ -567,14 +601,14 @@ $mod_language = array(
     'ip_lookup' => 'IP Lookup:',
     'registered' => 'Geregistreerd',
     'reason' => 'Reden:',
-	'cant_ban_root_user' => 'Can\'t punish the root user!',
-	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
-	'punished_successfully' => 'Punishment added successfully.',
+	'cant_ban_root_user' => 'Je kan de hoofdgebruiker niet straffen!',
+	'invalid_reason' => 'Maak a.u.b. Een goede reden tussen de 2 en 256 tekens lang.',
+	'punished_successfully' => 'Straf succesvol toegevoegd.',
 
     // Reports
     'report_closed' => 'Report Gesloten.',
-    'new_comment' => 'Nieuw Comment',
-    'comments' => 'Comments',
+    'new_comment' => 'Nieuw Commentaar',
+    'comments' => 'Commentaar',
     'only_viewed_by_staff' => 'Kan alleen worden bekeken door staff',
     'reported_by' => 'Gerapporteerd door',
     'close_issue' => 'Gesloten Uitslag',
@@ -588,7 +622,8 @@ $mod_language = array(
     'user_profile' => 'Speler Profiel',
     'comment_added' => 'Comment added.',
     'new_report_submitted_alert' => 'Nieuw report ingediend door {x} over {y}', // Don't replace "{x}" or "{y}"
-     
+	'ingame_report' => 'Ingame Report',
+
     // Staff applications
     'comment_error' => 'Zorg ervoor dat uw comment tussen de 2 en 2048 tekens lang is.',
     'viewing_open_applications' => 'Bekijk <span class="label label-info">open</span> applications. Verander naar <a href="/mod/applications/?view=accepted"><span class="label label-success">Geaccepted</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">Afgewezen</span></a>.',
@@ -602,7 +637,7 @@ $mod_language = array(
     'declined' => 'Afgewezen',
     'accept' => 'Accepteer',
     'decline' => 'Afwijzen',
-    'new_app_submitted_alert' => 'Nieuwe application ingediend door {x}' // Don't replace "{x}"
+    'new_app_submitted_alert' => 'Nieuwe applicatie ingediend door {x}' // Don't replace "{x}"
 );
  
 /* 
@@ -667,7 +702,7 @@ $forum_language = array(
     'topic' => 'topic',
     'statistics' => 'Statistieken',
     'overview' => 'Overzicht',
-    'latest_discussions' => 'Laatste Discussions',
+    'latest_discussions' => 'Nieuwste Discussies',
     'latest_posts' => 'Laatste Posts',
     'users_registered' => 'Gebruikers Geregistreerd:',
     'latest_member' => 'Nieuwste Gebruiker:',
@@ -739,9 +774,10 @@ $forum_language = array(
     'are_you_logged_in' => 'Bent u ingelogd?',
     'online_users' => 'Gebruikers Online',
     'no_users_online' => 'Er zijn geen gebruikers online.',
-     
+
     // Search
     'search_error' => 'Voer een zoekopdracht in die tussen 1 en 32 tekens lang is.',
+	'no_search_results' => 'No search results have been found.',
     
     //Share on a social-media.
 	'sm-share' => 'Delen',

@@ -31,6 +31,7 @@ $admin_language = array(
 	
 	// Admin sidebar
 	'index' => 'Oversikt',
+	'announcements' => 'Annonser',
 	'core' => 'Kjerne',
 	'custom_pages' => 'Custom Sider',
 	'general' => 'General',
@@ -41,11 +42,32 @@ $admin_language = array(
 	'addons' => 'Addons',
 	'update' => 'Oppdater',
 	'misc' => 'Diverse',
+	'help' => 'Hjelp',
 	
 	// Admin index page
 	'statistics' => 'Statistikk',
 	'registrations_per_day' => 'Registreringer per dag (siste 7 dager)',
-	
+
+	// Admin announcements page
+	'current_announcements' => 'Nåværende Annonser',
+	'create_announcement' => 'opprett Annons',
+	'announcement_content' => 'Annons Innhold',
+	'announcement_location' => 'Annons Plassering',
+	'announcement_can_close' => 'Kan lukke annons?',
+	'announcement_permissions' => 'Annons Tillatelser',
+	'no_announcements' => 'Ingen annonser opprettet ennå.',
+	'confirm_cancel_announcement' => 'Er du sikker på at du vil avbryte denne annonsen?',
+	'announcement_location_help' => 'Ctrl-klikk for å velge flere sider',
+	'select_all' => 'Velg alle',
+	'deselect_all' => 'Opphev alle',
+	'announcement_created' => 'Annons opprettet',
+	'please_input_announcement_content' => 'Vennligst skriv Annons content og velge en type',
+	'confirm_delete_announcement' => 'Er du sikker på at du vil slette denne Annons?',
+	'announcement_actions' => 'Annons Auksjoner',
+	'announcement_deleted' => 'Annons velykket slettet',
+	'announcement_type' => 'Annons Type',
+	'can_view_announcement' => 'Kan vise Annons?',
+
 	// Admin core page
 	'general_settings' => 'Generelle innstillinger',
 	'modules' => 'Moduler',
@@ -65,8 +87,8 @@ $admin_language = array(
 	'use_gmail_help' => 'Bare tilgjengelig hvis PHP-postfunksjonen er deaktivert. Hvis du velger å ikke bruke Gmail, vil SMTP brukes. Uansett må dette konfigurere i core/email.php.',
 	'enable_mail_verification' => 'Aktiver e-postkonto verifisering?',
 	'enable_email_verification_help' => 'Å ha denne aktivert vil be nyregistrerte brukere å verifisere sin konto via e-post før brukeren er fullført registreringen.',
-	'explain_email_settings' => 'The following is required if the "Use PHP mail() function" option is <strong>disabled</strong>. You can find documentation on these settings <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">on our wiki</a>.',
-	'email_config_not_writable' => 'Your <strong>core/email.php</strong> file is not writable. Please check file permissions.',
+	'explain_email_settings' => 'Følgende er nødvendig hvis "Bruk PHP mail () -funksjonen" alternativet er <strong>deaktivert</strong>. Du kan finne dokumentasjon på disse innstillingene <a href="https://github.com/NamelessMC/Nameless/wiki/Setting-up-Gmail-or-SMTP-with-Nameless" target="_blank">på vår wiki</a>.',
+	'email_config_not_writable' => '<strong>core/email.php</strong> Filen er ikke skrivbar. Vennligst sjekk filrettigheter.',
 	'pages' => 'Sider',
 	'enable_or_disable_pages' => 'Aktivere eller deaktivere sider her.',
 	'enable' => 'Aktiver',
@@ -81,6 +103,7 @@ $admin_language = array(
 	'social_media_links' => 'Sosial Media Linker',
 	'youtube_url' => 'YouTube URL',
 	'twitter_url' => 'Twitter URL',
+	'twitter_dark_theme' => 'Bruk mørk Twitter tema?',
 	'twitter_widget_id' => 'Twitter Widget ID',
 	'google_plus_url' => 'Google Plus URL',
 	'facebook_url' => 'Facebook URL',
@@ -162,7 +185,7 @@ $admin_language = array(
 	'label_warning' => 'Advarsel',
 	'label_danger' => 'Fare',
 	'new_forum' => 'Ny Forum',
-	'forum_layout' => 'Forum Layout',
+	'forum_layout' => 'Forum Oppsett',
 	'table_view' => 'Tabell Visning',
 	'latest_discussions_view' => 'Siste Diskusjoner Visning',
 	'create_forum' => 'Opprett Forum',
@@ -279,6 +302,15 @@ $admin_language = array(
 	'purge_errors' => 'Sleep feil medlingene',
 	'confirm_purge_errors' => 'Er du sikker på at du vil slette alle feil meldingene?',
 	'avatar_type' => 'Avatar type',
+	'custom_usernames' => 'Force Minecraft usernames?',
+	'mcassoc' => 'mcassoc',
+	'use_mcassoc' => 'Bruk mcassoc?',
+	'use_mcassoc_help' => 'mcassoc sikrer brukerne eier sin Minecraft kontoen de er å registrere seg med',
+	'mcassoc_key' => 'mcassoc Delt nøkkel',
+	'invalid_mcassoc_key' => 'Ugyldig mcassoc nøkkel.',
+	'mcassoc_instance' => 'mcassoc instance',
+	'mcassoc_instance_help' => 'Generere en instance kode <a href="http://jsbin.com/jadofehoqu/1/" target="_blank">her</a>',
+	'mcassoc_key_help' => 'Få en mcassoc nøkkelen <a href="https://mcassoc.lukegb.com/" target="_blank">her</a>',
 	
 	// Admin Themes, Templates and Addons
 	'themes' => 'Temaer',
@@ -344,7 +376,7 @@ $navbar_language = array(
 	'play' => 'Spill',
 	'forum' => 'Forum',
 	'more' => 'Mer',
-	'staff_apps' => 'Staff Applications',
+	'staff_apps' => 'Staff Søknader',
 	'view_messages' => 'Vis Meldinger',
 	'view_alerts' => 'Vis Varsler',
 	
@@ -365,6 +397,7 @@ $user_language = array(
 	'username' => 'Brukernavn',
 	'minecraft_username' => 'Minecraft Brukernavn',
 	'email' => 'Epost',
+	'user_title' => 'Title',
 	'email_address' => 'Epost Address',
 	'date_of_birth' => 'Fødselsdato',
 	'location' => 'Lokasjon',
@@ -412,6 +445,11 @@ $user_language = array(
 	'location_required' => 'Vennligst skriv inn et lokasjon.',
 	'location_minimum_2' => 'Din lokasjon må være minst 2 tegn.',
 	'location_maximum_128' => 'Din lokasjon må være maksimalt 128 tegn.',
+	'verify_account' => 'Bekreft kontoen',
+	'verify_account_help' => 'Følg instruksjonene under slik at vi kan bekrefte at du eier Minecraft aktuelle kontoen.',
+	'verification_failed' => 'Verifisering mislyktes, vennligst prøv igjen.',
+	'verification_success' => 'Vellykket skjekking! Du kan nå logge inn.',
+	'complete_signup' => 'Complete Signup',
 	
 	// UserCP
 	'user_cp' => 'BrukerCP',
@@ -455,15 +493,15 @@ $user_language = array(
 	'enable_tfa' => 'Enable Two Factor Authentication',
 	'tfa_type' => 'Two Factor Authentication type:',
 	'authenticator_app' => 'Authentication App',
-	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
-	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
-	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
-	'invalid_tfa' => 'Invalid code, please try again.',
-	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
-	'confirm_tfa_disable' => 'Are you sure you wish to disable two factor authentication?',
-	'tfa_disabled' => 'Two factor authentication disabled.',
-	'tfa_enter_email_code' => 'We have sent you a code within an email for verification. Please enter the code now:',
-	'tfa_email_contents' => 'A login attempt has been made to your account. If this was you, please input the following two factor authentication code when asked to do so. If this was not you, you can ignore this email, however a password reset is advised. The code is only valid for 10 minutes.',
+	'tfa_scan_code' => 'Vennligst skanne følgende kode innenfor godkjennings app:',
+	'tfa_code' => 'Hvis enheten ikke har et kamera, eller du er i stand til å skanne QR-koden, legg inn følgende kode:',
+	'tfa_enter_code' => 'Skriv inn koden som viser innenfor godkjennings app:',
+	'invalid_tfa' => 'Ugyldig kode, prøv igjen.',
+	'tfa_successful' => 'To faktor autentisering oppsett med hell. Du må godkjenne hver gang du logger deg på fra nå av.',
+	'confirm_tfa_disable' => 'Er du sikker på at du ønsker å deaktivere to faktor autentisering?',
+	'tfa_disabled' => 'To faktor autentisering deaktivert.',
+	'tfa_enter_email_code' => 'Vi har sendt deg en kode i en e-post for bekreftelse. Skriv inn koden nå:',
+	'tfa_email_contents' => 'En påloggingsforsøk har blitt gjort til din konto. Hvis dette var deg, legg inn følgende to faktor autentisering kode når du blir bedt om å gjøre det. Hvis dette ikke var deg, kan du se bort fra denne e-posten, men en tilbakestilling av passord er oppmerksom på. Koden er kun gyldig i 10 minutter.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Viser uleste varsler. Endre til <a href="/user/alerts/?view=read"><span class="label label-success">Lest</span></a>.',
@@ -533,10 +571,10 @@ $user_language = array(
 	'name_history' => 'Navn Historie',
  	'changed_name_to' => 'Endret navn til: {x} på {y}', // Don't replace {x} or {y}
  	'original_name' => 'Opprinnelig navn:',
-	'name_history_error' => 'Unable to retrieve username history.',
+	'name_history_error' => 'Kan ikke hente brukernavn historie.',
 	
 	// Staff applications
-	'staff_application' => 'Staff Application',
+	'staff_application' => 'Staff Søknad',
 	'application_submitted' => 'Søknad sendt.',
 	'application_already_submitted' => 'Du har allerede sendt inn en søknad. Vent til den er ferdig før du sender en annen.',
 	'not_logged_in' => 'Vennligst logg inn for å se denne siden.',
@@ -563,9 +601,9 @@ $mod_language = array(
 	'ip_lookup' => 'IP Lookup:',
 	'registered' => 'Registrert',
 	'reason' => 'Grunn:',
-	'cant_ban_root_user' => 'Can\'t punish the root user!',
-	'invalid_reason' => 'Please enter a valid reason between 2 and 256 characters long.',
-	'punished_successfully' => 'Punishment added successfully.',
+	'cant_ban_root_user' => 'Kan ikke straffe root bruker!',
+	'invalid_reason' => 'Vennligst skriv inn en gyldig grunn til mellom 2 og 256 tegn.',
+	'punished_successfully' => 'Straff lagt til.',
 	
 	// Reports
 	'report_closed' => 'Rapporter lukket.',
@@ -584,13 +622,14 @@ $mod_language = array(
 	'user_profile' => 'Bruker Profil',
 	'comment_added' => 'Kommentar lagt til.',
 	'new_report_submitted_alert' => 'Ny rapport fra {x} angående bruker {y}', // Don't replace "{x}" or "{y}"
+	'ingame_report' => 'Ingame Report',
 	
 	// Staff applications
 	'comment_error' => 'Sørg for din kommentar er mellom 2 og 2048 tegn.',
 	'viewing_open_applications' => 'Viser <span class="label label-info">Åpne</span> søknader. Bytt til <a href="/mod/applications/?view=accepted"><span class="label label-success">aksepterte</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">Avslått</span></a>.',
-	'viewing_accepted_applications' => 'Viser <span class="label label-success">akseptert</span> applications. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">avslått</span></a>.',
-	'viewing_declined_applications' => 'Viser <span class="label label-danger">Avslått</span> applications. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=accepted"><span class="label label-success">akseptert</span></a>.',
-	'time_applied' => 'tid Applied',
+	'viewing_accepted_applications' => 'Viser <span class="label label-success">akseptert</span> søknader. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=declined"><span class="label label-danger">avslått</span></a>.',
+	'viewing_declined_applications' => 'Viser <span class="label label-danger">Avslått</span> søknader. Bytt til <a href="/mod/applications/"><span class="label label-info">Åpne</span></a> eller <a href="/mod/applications/?view=accepted"><span class="label label-success">akseptert</span></a>.',
+	'time_applied' => 'tid Tatt i bruk',
 	'no_applications' => 'Ingen søknader i denne kategorien',
 	'viewing_app_from' => 'Viser søknad fra {x}', // Don't replace "{x}"
 	'open' => 'Åpne',
@@ -626,7 +665,7 @@ $general_language = array(
 	'error' => 'Feil',
 	'view' => 'Vis',
 	'info' => 'Info',
-	'next' => 'Next',
+	'next' => 'Neste',
 	
 	// Play page
 	'connect_with' => 'Koble til serveren med IP {x}', // Don't replace {x}
@@ -738,6 +777,7 @@ $forum_language = array(
 	
 	// Search
 	'search_error' => 'Vennligst skriv inn et søk på mellom 1 og 32 tegn.',
+	'no_search_results' => 'Ingen søke resultater har blitt funnet.',
 	
 	//Share on a social-media.
 	'sm-share' => 'Del',

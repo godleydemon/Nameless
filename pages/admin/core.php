@@ -33,7 +33,7 @@ $adm_page = "core";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Admin panel">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
@@ -309,6 +309,18 @@ $adm_page = "core";
 									$queries->update('settings', $twitter_url_id, array(
 										'value' => htmlspecialchars(Input::get('twitterurl'))
 									));
+									
+									// Twitter dark theme
+									$twitter_dark_theme = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
+									$twitter_dark_theme = $twitter_dark_theme[0]->id;
+									
+									if(isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) $theme = 'dark';
+									else $theme = 'light';
+									
+									$queries->update('settings', $twitter_dark_theme, array(
+										'value' => $theme
+									));
+									
 									// Google Plus URL
 									$gplus_url_id = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
 									$gplus_url_id = $gplus_url_id[0]->id;
@@ -333,6 +345,7 @@ $adm_page = "core";
 							// Get values from database
 							$youtube_url = $queries->getWhere('settings', array('name', '=', 'youtube_url'));
 							$twitter_url = $queries->getWhere('settings', array('name', '=', 'twitter_url'));
+							$twitter_style = $queries->getWhere('settings', array('name', '=', 'twitter_style'));
 							$gplus_url = $queries->getWhere('settings', array('name', '=', 'gplus_url'));
 							$fb_url = $queries->getWhere('settings', array('name', '=', 'fb_url'));
 						?>
@@ -352,8 +365,8 @@ $adm_page = "core";
 								<input type="text" name="twitterurl" class="form-control" id="InputTwitter" placeholder="<?php echo $admin_language['twitter_url']; ?>" value="<?php echo htmlspecialchars($twitter_url[0]->value); ?>">
 							</div>
 							<div class="form-group">
-								<label for="InputTwitterID"><?php echo $admin_language['twitter_widget_id']; ?></label>
-								<input type="text" name="twitter_id" class="form-control" id="InputTwitterID" placeholder="<?php echo $admin_language['twitter_widget_id']; ?>" value="<?php echo htmlspecialchars($twitter_wid_id[0]->value); ?>">
+							  <label for="InputTwitterStyle"><?php echo $admin_language['twitter_dark_theme']; ?></label>
+							  <input id="InputTwitterStyle" name="twitter_dark_theme" type="checkbox" class="js-switch" value="1" <?php if($twitter_style[0]->value == 'dark') echo 'checked'; ?>/>
 							</div>
 							<div class="form-group">
 								<label for="InputGPlus"><?php echo $admin_language['google_plus_url']; ?></label>
@@ -586,6 +599,11 @@ $adm_page = "core";
 											} catch(Exception $e) {
 												die($e->getMessage());
 											}
+											
+											// Link location
+											$c->setCache('staffapps');
+											$c->store('linklocation', htmlspecialchars(Input::get('linkposition')));
+											
 										}
 									} else {
 										Session::flash('apps_post_success', '<div class="alert alert-danger">' . $admin_language['invalid_token'] . '</div>');
@@ -598,47 +616,71 @@ $adm_page = "core";
 								$groups = $queries->getWhere('groups', array('id', '<>', '0'));
 						?>
 						<form role="form" action="" method="post">
-						  <strong><?php echo $admin_language['permissions']; ?></strong><br /><br />
-						  <div class="row">
-						    <div class="col-md-8">
-							  <div class="col-md-6">
-							    <?php echo $admin_language['group']; ?>
+						  <div class="form-group">
+						    <strong><?php echo $admin_language['permissions']; ?></strong><br /><br />
+						    <div class="row">
+						      <div class="col-md-8">
+							    <div class="col-md-6">
+							      <?php echo $admin_language['group']; ?>
+							    </div>
+							    <div class="col-md-3">
+							      <?php echo $admin_language['view_applications']; ?>
+							    </div>
+							    <div class="col-md-3">
+							      <?php echo $admin_language['accept_reject_applications']; ?>
+							    </div>
 							  </div>
-							  <div class="col-md-3">
-							    <?php echo $admin_language['view_applications']; ?>
-							  </div>
-							  <div class="col-md-3">
-							    <?php echo $admin_language['accept_reject_applications']; ?>
-							  </div>
-							</div>
-						  </div>
+						    </div>
 
-						  <?php
-						  foreach($groups as $group){
-						  ?>
-						  <div class="row">
-						    <div class="col-md-8">
-							  <div class="col-md-6">
-							    <?php echo htmlspecialchars($group->name); ?><br /><br />
-							  </div>
-							  <div class="col-md-3">
-							    <div class="form-group">
-								  <input id="view-<?php echo $group->id; ?>" name="view-<?php echo $group->id; ?>" type="checkbox" class="js-switch" <?php if($group->staff_apps == 1){ ?>checked <?php } ?>/>
+						    <?php
+						    foreach($groups as $group){
+						    ?>
+						    <div class="row">
+						      <div class="col-md-8">
+							    <div class="col-md-6">
+							      <?php echo htmlspecialchars($group->name); ?><br /><br />
+							    </div>
+							    <div class="col-md-3">
+							      <div class="form-group">
+								    <input id="view-<?php echo $group->id; ?>" name="view-<?php echo $group->id; ?>" type="checkbox" class="js-switch" <?php if($group->staff_apps == 1){ ?>checked <?php } ?>/>
+							      </div>
+							    </div>
+							    <div class="col-md-3">
+							      <div class="form-group">
+								    <input id="accept-<?php echo $group->id; ?>" name="accept-<?php echo $group->id; ?>" type="checkbox" class="js-switch" <?php if($group->accept_staff_apps == 1){ ?>checked <?php } ?>/>
+							      </div>
 							    </div>
 							  </div>
-							  <div class="col-md-3">
-							    <div class="form-group">
-								  <input id="accept-<?php echo $group->id; ?>" name="accept-<?php echo $group->id; ?>" type="checkbox" class="js-switch" <?php if($group->accept_staff_apps == 1){ ?>checked <?php } ?>/>
-							    </div>
-							  </div>
-							</div>
+						    </div>
+						    <?php
+						    }
+						    ?>
 						  </div>
-						  <?php
-						  }
-						  ?>
-						  <br /><br />
-						  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-						  <input type="submit" class="btn btn-default" value="<?php echo $general_language['submit']; ?>">
+						  
+						  <div class="form-group">
+						    <label for="InputLinkPosition"><?php echo $admin_language['page_link_location']; ?></label>
+							<?php
+							// Get position of link
+							$c->setCache('staffapps');
+							if($c->isCached('linklocation')){
+								$link_location = $c->retrieve('linklocation');
+							} else {
+								$c->store('linklocation', 'navbar');
+								$link_location = 'navbar';
+							}
+							?>
+						    <select name="linkposition" id="InputLinkPosition" class="form-control">
+							  <option value="navbar" <?php if($link_location == 'navbar'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_navbar']; ?></option>
+							  <option value="more" <?php if($link_location == 'more'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_more']; ?></option>
+							  <option value="footer" <?php if($link_location == 'footer'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_footer']; ?></option>
+							  <option value="none" <?php if($link_location == 'none'){ echo 'selected="selected"'; } ?>><?php echo $admin_language['page_link_none']; ?></option>
+							</select>
+						  </div>
+						  
+						  <div class="form-group">
+						    <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+						    <input type="submit" class="btn btn-default" value="<?php echo $general_language['submit']; ?>">
+						  </div>
 						</form>
 						
 						<br /><br />
@@ -922,7 +964,7 @@ $adm_page = "core";
 														'    \'host\' => \'' . str_replace('\'', '\\\'', (isset($_POST['host']) ? $_POST['host'] : $GLOBALS['email']['host'])) . '\',' . PHP_EOL .
 														'    \'port\' => ' . str_replace('\'', '\\\'', $GLOBALS['email']['port']) . ',' . PHP_EOL .
 														'    \'secure\' => \'' . str_replace('\'', '\\\'', $GLOBALS['email']['secure']) . '\',' . PHP_EOL .
-														'    \'smtp_auth\' => ' . $GLOBALS['email']['smtp_auth'] . '' . PHP_EOL .
+														'    \'smtp_auth\' => ' . (($GLOBALS['email']['smtp_auth']) ? 'true' : 'false') . '' . PHP_EOL .
 														');';
 										
 										$file = fopen($config_path, 'w');

@@ -37,6 +37,7 @@ $uuid_linking = $uuid_linking[0]->value;
 
 require('core/includes/password.php'); // Password compat library
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
+require('core/integration/uuid.php');
 
 ?>
 <!DOCTYPE html>
@@ -46,7 +47,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Admin panel">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
 	<meta name="robots" content="noindex">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
@@ -202,6 +203,18 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									);
 									$mcname = htmlspecialchars(Input::get('username'));
 								}
+								
+								// Get UUID
+								$profile = ProfileUtils::getProfile($mcname);
+
+								if(!empty($profile)){
+									$result = $profile->getProfileAsArray();
+									if(isset($result['uuid']) && !empty($result['uuid'])){
+										$uuid = $result['uuid'];
+									} else $uuid = 'Unknown';
+									
+								} else $uuid = 'Unknown';
+								
 							} else {
 								if($displaynames == "true"){
 									$to_validation['mcname'] = array(
@@ -242,6 +255,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									$user->create(array(
 										'username' => htmlspecialchars(Input::get('username')),
 										'mcname' => $mcname,
+										'uuid' => $uuid,
 										'password' => $password,
 										'pass_method' => 'default',
 										'joined' => $date,
@@ -398,6 +412,10 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 							// Delete the user's topics
 							$queries->delete('topics', array('topic_creator', '=', $_GET["uid"]));
 							
+							// Delete user's friends
+							$queries->delete('friends', array('user_id', '=', $_GET["uid"]));
+							$queries->delete('friends', array('friend_id', '=', $_GET["uid"]));
+							
 							Session::flash('adm-users', '<div class="alert alert-info alert-dismissible">  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' . $admin_language['user_deleted'] . '</div>');
 							echo '<script data-cfasync="false">window.location.replace("/admin/users/");</script>';
 							die();
@@ -456,6 +474,9 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 									),
 									'UUID' => array(
 										'max' => 32
+									),
+									'title' => array(
+										'max' => 64
 									),
 									'signature' => array(
 										'max' => 900
@@ -519,6 +540,7 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 											'group_id' => Input::get('group'),
 											'mcname' => htmlspecialchars(Input::get('MCUsername')),
 											'uuid' => htmlspecialchars(Input::get('UUID')),
+											'user_title' => Input::get('title'),
 											'signature' => htmlspecialchars($signature),
 											'lastip' => Input::get('ip')
 										));
@@ -711,6 +733,10 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 						  }
 						  ?>
 						  <div class="form-group">
+							<label for="InputTitle"><?php echo $user_language['user_title']; ?></label>
+							<input type="text" class="form-control" name="title" id="InputTitle"  value="<?php echo htmlspecialchars($individual[0]->user_title);?>"></input>
+						  </div>
+						  <div class="form-group">
 							<label for="InputSignature"><?php echo $user_language['signature']; ?></label>
 							<textarea class="signature" rows="10" name="signature" id="InputSignature"><?php echo $signature; ?></textarea>
 						  </div>
@@ -828,6 +854,8 @@ require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifi
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
 		} );
+		CKEDITOR.config.disableNativeSpellChecker = false;
+		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	</script>
   </body>
 </html>

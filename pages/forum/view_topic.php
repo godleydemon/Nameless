@@ -98,7 +98,7 @@ $smarty->assign(array(
 ));
 
 // Get all posts in the topic
-$posts = $queries->getWhere("posts", array("topic_id", "=", $tid));
+$posts = $forum->getPosts($tid);
 
 // Can the user post a reply in this topic?
 $can_reply = $forum->canPostReply($topic->forum_id, $user->data()->group_id);
@@ -171,9 +171,11 @@ if($user->isLoggedIn()){
 }
 
 // View count
-if(!Cookie::exists('nl-topic-' . $tid)) {
-	$queries->increment("topics", $tid, "topic_views");
-	Cookie::put("nl-topic-" . $tid, "true", 3600);
+if($user->isLoggedIn() || Cookie::exists('alert-box')){
+	if(!Cookie::exists('nl-topic-' . $tid)) {
+		$queries->increment("topics", $tid, "topic_views");
+		Cookie::put("nl-topic-" . $tid, "true", 3600);
+	}
 }
 
 $config = HTMLPurifier_Config::createDefault();
@@ -187,7 +189,7 @@ $purifier = new HTMLPurifier($config);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="<?php echo $sitename; ?> Forum - Topic: <?php echo htmlspecialchars($topic->topic_title); ?>">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
     <?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 	
 	<?php
@@ -254,18 +256,8 @@ $purifier = new HTMLPurifier($config);
 		$smarty->assign('SESSION_FAILURE_POST', '');
 	}
 	
-	// Display cookie message if the user's not logged in
-	$cookie_message = '';
-	if(!$user->isLoggedIn()) {
-		$cookie_message = '
-	  <div class="alert alert-cookie alert-info alert-dismissible" role="alert">
-        <button type="button" class="close close-cookie" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">' . $general_language['close'] . '</span></button>
-	    ' . $general_language['cookie_message'] . '
-	  </div>
-	  ';
-	}
-	
-	$smarty->assign('COOKIE_MESSAGE', $cookie_message);
+	// TODO: remove
+	$smarty->assign('COOKIE_MESSAGE', '');
 	
 	// Display "new reply" button and "mod actions" if the user has access to them
 	$buttons = '';
@@ -347,8 +339,9 @@ $purifier = new HTMLPurifier($config);
 	$config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 	$config->set('URI.DisableExternalResources', false);
 	$config->set('URI.DisableResources', false);
+	$config->set('CSS.Trusted', true);
 	$config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
-	$config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
+	$config->set('CSS.AllowedProperties', array('position', 'padding-bottom', 'padding-top', 'top', 'left', 'height', 'width', 'overflow', 'text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size'));
 	$config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style');
 	$config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 	$config->set('HTML.SafeIframe', true);
@@ -507,6 +500,7 @@ $purifier = new HTMLPurifier($config);
 			'username' => htmlspecialchars($post_user[0]->username),
 			'mcname' => htmlspecialchars($post_user[0]->mcname),
 			'user_group' => $user_group,
+			'user_title' => htmlspecialchars($post_user[0]->user_title),
 			'user_posts_count' => count($queries->getWhere('posts', array('post_creator', '=', $posts[$n]->post_creator))),
 			'user_reputation' => $post_user[0]->reputation,
 			'post_date_rough' => $timeago->inWords($posts[$n]->post_date, $time_language),
@@ -558,34 +552,17 @@ $purifier = new HTMLPurifier($config);
 	<script src="/core/assets/js/ckeditor.js"></script>
 	<script src="/core/assets/js/jquery-ui.min.js"></script>
 	<script type="text/javascript">
-	jQuery(function( $ ){
-
-		// Check if alert has been closed
-		if( $.cookie('alert-box') === 'closed' ){
-
-			$('.alert-cookie').hide();
-
-		}
-
-		 // Grab your button (based on your posted html)
-		$('.close-cookie').click(function( e ){
-
-			// Do not perform default action when button is clicked
-			e.preventDefault();
-
-			/* If you just want the cookie for a session don't provide an expires
-			 Set the path as root, so the cookie will be valid across the whole site */
-			$.cookie('alert-box', 'closed', { path: '/' });
-
-		});
-
-	});
-	</script>
-	<script type="text/javascript">
 		$(document).ready(function(){
 			$("[rel=tooltip]").tooltip({ placement: 'top'});
 			var hash = window.location.hash.substring(1);
 			$("#" + hash).effect("highlight", {}, 2000);
+			(function() {
+			    if (document.location.hash) {
+			        setTimeout(function() {
+			            window.scrollTo(window.scrollX, window.scrollY - 70);
+			        }, 10);
+			    }
+			})();
 		});
 		
 		CKEDITOR.replace( 'quickreply', {
@@ -601,6 +578,8 @@ $purifier = new HTMLPurifier($config);
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash,Iframe'
 		} );
+		CKEDITOR.config.disableNativeSpellChecker = false;
+		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	</script>
   </body>
 </html>

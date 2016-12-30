@@ -23,7 +23,7 @@ if(isset($_GET["step"])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="NamelessMC installer">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="NamelessMC installer">
     <meta name="robots" content="noindex">
 
     <title>NamelessMC &bull; Install</title>
@@ -630,10 +630,30 @@ if(isset($_GET["step"])){
 								'value' => 'helmavatar'
 							));
 							
+							$queries->create('settings', array(
+								'name' => 'use_mcassoc',
+								'value' => '0'
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'mcassoc_key',
+								'value' => ''
+							));
+
+							$queries->create('settings', array(
+								'name' => 'mcassoc_instance',
+								'value' => ''
+							));
+							
+							$queries->create('settings', array(
+								'name' => 'twitter_style',
+								'value' => 'light'
+							));
+							
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
-								'value' => '1.0.10'
+								'value' => '1.0.15'
 							));
 							
 							
@@ -1002,7 +1022,7 @@ if(isset($_GET["step"])){
 					),
 					28 => array(
 						'name' => 'version',
-						'value' => '1.0.10'
+						'value' => '1.0.15'
 					),
 					29 => array(
 						'name' => 'version_checked',
@@ -1043,6 +1063,22 @@ if(isset($_GET["step"])){
 					38 => array(
 						'name' => 'avatar_type',
 						'value' => 'helmavatar'
+					),
+					39 => array(
+						'name' => 'use_mcassoc',
+						'value' => '0'
+					),
+					40 => array(
+						'name' => 'mcassoc_key',
+						'value' => ''
+					),
+					41 => array(
+						'name' => 'mcassoc_instance',
+						'value' => ''
+					),
+					42 => array(
+						'name' => 'twitter_style',
+						'value' => 'light'
 					)
 				);
 				

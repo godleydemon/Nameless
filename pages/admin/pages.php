@@ -228,7 +228,7 @@ $token = Token::generate(); // generate token
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Admin panel">
-    <meta name="author" content="Samerton">
+    <meta name="author" content="<?php echo $sitename; ?>">
 	<meta name="robots" content="noindex">
 	<script>var groups = [];</script>
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
@@ -328,7 +328,7 @@ $token = Token::generate(); // generate token
 				  $config = HTMLPurifier_Config::createDefault();
 				  $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 				  $config->set('URI.DisableExternalResources', false);
-				  $config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+				  $config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img,div[well]');
 				  $config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size', 'border-style', 'border-width', 'height', 'width'));
 				  $config->set('HTML.AllowedAttributes', 'target, href, src, height, width, alt, class, *.style, frameborder');
 				  $config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
@@ -462,7 +462,7 @@ $token = Token::generate(); // generate token
 				  $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
 				  $config->set('URI.DisableExternalResources', false);
 				  $config->set('URI.DisableResources', false);
-				  $config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img');
+				  $config->set('HTML.Allowed', 'u,p,b,i,a,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img,div[well]');
 				  $config->set('CSS.AllowedProperties', array('text-align', 'float', 'color','background-color', 'background', 'font-size', 'font-family', 'text-decoration', 'font-weight', 'font-style', 'font-size', 'border-style', 'border-width', 'height', 'width'));
 				  $config->set('HTML.AllowedAttributes', 'href, src, height, width, alt, class, *.style, frameborder');
 				  $config->set('HTML.SafeIframe', true);
@@ -522,6 +522,7 @@ $token = Token::generate(); // generate token
 	<script type="text/javascript">
 		CKEDITOR.replace( 'content_editor', {
 			// Define the toolbar groups as it is a more accessible solution.
+			extraAllowedContent: 'div(panel,panel-*,well)',
 			toolbarGroups: [
 				{"name":"basicstyles","groups":["basicstyles"]},
 				{"name":"links","groups":["links"]},
@@ -535,6 +536,8 @@ $token = Token::generate(); // generate token
 			// Remove the redundant buttons from toolbar groups defined above.
 			removeButtons: 'Anchor,Styles,Specialchar,Font,About,Flash'
 		} );
+		CKEDITOR.config.disableNativeSpellChecker = false;
+		CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
 	</script>
     <script type="text/javascript">
 		function colourUpdate(that) {
